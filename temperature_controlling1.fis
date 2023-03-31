@@ -1,0 +1,69 @@
+[System]
+Name='temperature_controlling1'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=17
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='sensed_temp'
+Range=[-50 50]
+NumMFs=5
+MF1='NEG':'trimf',[-50 -35 -15]
+MF2='SNEG':'trimf',[-30 -15 0]
+MF3='ZERO':'trimf',[-15 0 15]
+MF4='POZ':'trimf',[15 30 50]
+MF5='SPOZ':'trimf',[0.211416490486258 15.2114164904863 30.2114164904863]
+
+[Input2]
+Name='targeted_temp'
+Range=[-50 50]
+NumMFs=5
+MF1='NEG':'trimf',[-50 -35 -15]
+MF2='ZERO':'trimf',[-15 0 15]
+MF3='POZ':'trimf',[15 30 50]
+MF4='SNEG':'trimf',[-30 -15 0]
+MF5='SPOZ':'trimf',[0 15 30]
+
+[Output1]
+Name='P-PWM-C'
+Range=[0 255]
+NumMFs=4
+MF1='VH':'trimf',[165 200 255]
+MF2='M':'trimf',[60 100 140]
+MF3='Z':'trimf',[0 40 89.25]
+MF4='H':'trimf',[110.53911205074 150.53911205074 204.53911205074]
+
+[Output2]
+Name='N-PWM-C'
+Range=[0 255]
+NumMFs=4
+MF1='Z':'trimf',[0 40 89.25]
+MF2='H':'trimf',[110 150 204]
+MF3='VH':'trimf',[165 200 255]
+MF4='M':'trimf',[60 100 140]
+
+[Rules]
+1 1, 3 1 (1) : 1
+1 3, 1 1 (1) : 1
+1 4, 2 1 (1) : 1
+1 5, 1 1 (1) : 1
+2 1, 3 4 (1) : 1
+2 3, 1 1 (1) : 1
+2 4, 3 1 (1) : 1
+2 5, 1 1 (1) : 1
+4 1, 3 3 (1) : 1
+4 3, 3 1 (1) : 1
+4 4, 3 2 (1) : 1
+4 5, 3 4 (1) : 1
+5 1, 3 2 (1) : 1
+5 3, 2 1 (1) : 1
+5 4, 3 3 (1) : 1
+5 5, 3 1 (1) : 1
+3 1, 3 2 (1) : 1
